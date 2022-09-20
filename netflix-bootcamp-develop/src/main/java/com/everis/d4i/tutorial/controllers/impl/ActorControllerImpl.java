@@ -1,9 +1,9 @@
 package com.everis.d4i.tutorial.controllers.impl;
 
 import com.everis.d4i.tutorial.controllers.ActorController;
-import com.everis.d4i.tutorial.dto.SeriesAndChaptersOfActorDto;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
 import com.everis.d4i.tutorial.json.ActorRest;
+import com.everis.d4i.tutorial.json.ActorsWorkRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 import com.everis.d4i.tutorial.services.impl.ActorServiceImpl;
 import com.everis.d4i.tutorial.utils.constants.CommonConstants;
@@ -71,7 +71,7 @@ public class ActorControllerImpl implements ActorController {
     @Override
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = RestConstants.RESOURCE_ACTOR_SEASON_CHAPTERS, produces = MediaType.APPLICATION_JSON_VALUE)
-    public NetflixResponse<SeriesAndChaptersOfActorDto> getSeriesAndChaptersByActorId(@PathVariable Long id) throws NetflixException {
+    public NetflixResponse<ActorsWorkRest> getSeriesAndChaptersByActorId(@PathVariable Long id) throws NetflixException {
         return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
                 actorService.getSeriesAndChaptersByActorId(id));
     }

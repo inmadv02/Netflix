@@ -1,11 +1,14 @@
 package com.everis.d4i.tutorial.entities;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "CATEGORIES")
 public class Category implements Serializable {
 
@@ -27,36 +30,7 @@ public class Category implements Serializable {
 	)
 	private List<TvShow> tvShows;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<TvShow> getTvShows() {
-		return tvShows;
-	}
-
-	public void setTvShows(List<TvShow> tvShows) {
-		this.tvShows = tvShows;
-	}
 
 
-	/// HELPERS ///
-
-	public void addTvShow(TvShow tvShow){
-		this.tvShows.add(tvShow);
-		tvShow.getCategories().add(this);
-	}
 
 }

@@ -2,8 +2,10 @@ package com.everis.d4i.tutorial.controllers;
 
 import java.util.List;
 
+import com.everis.d4i.tutorial.entities.Award;
 import com.everis.d4i.tutorial.entities.Category;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
+import com.everis.d4i.tutorial.json.AwardRest;
 import com.everis.d4i.tutorial.json.TvShowRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 
@@ -19,6 +21,6 @@ public interface TvShowController {
 
 	NetflixResponse<?> deleteTvShowById(Long id) throws NetflixException;
 
-	NetflixResponse<String[]> getTvShowPrizes(Long id) throws NetflixException;
+	NetflixResponse<List<AwardRest>> getTvShowPrizes(Long id) throws NetflixException;
 
 }

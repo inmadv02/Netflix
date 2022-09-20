@@ -2,7 +2,9 @@ package com.everis.d4i.tutorial.controllers.impl;
 
 import java.util.List;
 
+import com.everis.d4i.tutorial.entities.Award;
 import com.everis.d4i.tutorial.entities.Category;
+import com.everis.d4i.tutorial.json.AwardRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -66,10 +68,10 @@ public class TvShowControllerImpl implements TvShowController {
 
 	@Override
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(value = RestConstants.RESOURSE_TV_SHOW_PRIZES, produces = MediaType.APPLICATION_JSON_VALUE)
-	public NetflixResponse<String[]> getTvShowPrizes(@PathVariable Long id) throws NetflixException {
+	@GetMapping(value = RestConstants.RESOURSE_TV_SHOW_AWARDS, produces = MediaType.APPLICATION_JSON_VALUE)
+	public NetflixResponse<List<AwardRest>> getTvShowPrizes(@PathVariable Long id) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
-				tvShowService.getTvShowPrizes(id));
+				tvShowService.getTvShowAwards(id));
 	}
 
 }

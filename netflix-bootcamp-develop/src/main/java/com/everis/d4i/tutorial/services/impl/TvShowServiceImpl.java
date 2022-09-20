@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.everis.d4i.tutorial.entities.Award;
 import com.everis.d4i.tutorial.entities.Category;
 import com.everis.d4i.tutorial.entities.TvShow;
+import com.everis.d4i.tutorial.json.AwardRest;
 import com.everis.d4i.tutorial.json.CategoryRest;
 import com.everis.d4i.tutorial.repositories.CategoryRepository;
 import com.everis.d4i.tutorial.services.CategoryService;
@@ -30,7 +32,7 @@ public class TvShowServiceImpl implements TvShowService {
 	private TvShowRepository tvShowRepository;
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryRepository categoryRepository;
 
 	private ModelMapper modelMapper = new ModelMapper();
 
@@ -65,7 +67,7 @@ public class TvShowServiceImpl implements TvShowService {
 	public TvShowRest addCategory(Long id, List<Category> categoryList) throws NetflixException {
 		try {
 			tvShowRepository.getOne(id).addToCategory(categoryList);
-			categoryService.saveCategories(categoryList);
+			categoryRepository.saveAll(categoryList);
 			tvShowRepository.save(tvShowRepository.getOne(id));
 			return modelMapper.map(tvShowRepository.getOne(id), TvShowRest.class);
 		} catch (EntityNotFoundException entityNotFoundException){
@@ -83,12 +85,17 @@ public class TvShowServiceImpl implements TvShowService {
 	}
 
 	@Override
-	public String[] getTvShowPrizes(Long id) throws NetflixException {
+	public List<AwardRest> getTvShowAwards(Long id) throws NetflixException {
 		try {
-			return tvShowRepository.getOne(id).getPrizes();
+			return tvShowRepository.getOne(id).getAwards()
+					                          .stream()
+					                          .map(aw -> modelMapper.map(aw, AwardRest.class))
+					                          .collect(Collectors.toList());
+
 		} catch (EntityNotFoundException entityNotFoundException){
 			throw new NotFoundException(entityNotFoundException.getMessage());
 		}
 	}
+
 
 }

@@ -1,11 +1,14 @@
 package com.everis.d4i.tutorial.entities;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "CHAPTERS")
 public class Chapter implements Serializable {
 
@@ -37,51 +40,5 @@ public class Chapter implements Serializable {
 	)
 	private List<Actor> actors;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public short getNumber() {
-		return number;
-	}
-
-	public void setNumber(short number) {
-		this.number = number;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public short getDuration() {
-		return duration;
-	}
-
-	public void setDuration(short duration) {
-		this.duration = duration;
-	}
-
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
-
-	public List<Actor> getActors() {
-		return actors;
-	}
-
-	public void setActors(List<Actor> actors) {
-		this.actors = actors;
-	}
 }

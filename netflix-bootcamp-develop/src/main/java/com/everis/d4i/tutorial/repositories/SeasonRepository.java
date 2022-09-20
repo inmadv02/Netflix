@@ -15,4 +15,5 @@ public interface SeasonRepository extends JpaRepository<Season, Long> {
 
 	Optional<Season> findByTvShowIdAndNumber(Long tvShowId, short seasonNumber);
 
+
 }

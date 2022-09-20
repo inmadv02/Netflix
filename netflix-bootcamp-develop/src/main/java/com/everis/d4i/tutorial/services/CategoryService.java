@@ -12,6 +12,5 @@ public interface CategoryService {
 
 	CategoryRest createCategories(CategoryRest categoryRest) throws NetflixException;
 
-	void saveCategories(List<Category> categories);
 
 }

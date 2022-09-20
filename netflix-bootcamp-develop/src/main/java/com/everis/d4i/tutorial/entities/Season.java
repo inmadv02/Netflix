@@ -1,5 +1,7 @@
 package com.everis.d4i.tutorial.entities;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+@Data
 @Table(name = "SEASONS")
 public class Season implements Serializable {
 
@@ -38,44 +41,6 @@ public class Season implements Serializable {
 	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "season")
 	private List<Chapter> chapters;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public short getNumber() {
-		return number;
-	}
-
-	public void setNumber(short number) {
-		this.number = number;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public TvShow getTvShow() {
-		return tvShow;
-	}
-
-	public void setTvShow(TvShow tvShow) {
-		this.tvShow = tvShow;
-	}
-
-	public List<Chapter> getChapters() {
-		return chapters;
-	}
-
-	public void setChapters(List<Chapter> chapters) {
-		this.chapters = chapters;
-	}
 
 }

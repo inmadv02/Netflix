@@ -31,7 +31,6 @@ public class CategoryServiceImpl implements CategoryService {
 	private ModelMapper modelMapper = new ModelMapper();
 
 	public List<CategoryRest> getCategories() throws NetflixException {
-
 		return categoryRepository.findAll().stream().map(category -> modelMapper.map(category, CategoryRest.class))
 				.collect(Collectors.toList());
 
@@ -47,11 +46,6 @@ public class CategoryServiceImpl implements CategoryService {
 			throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
 		}
 		return modelMapper.map(category, CategoryRest.class);
-	}
-
-	@Override
-	public void saveCategories(List<Category> categories) {
-		categoryRepository.saveAll(categories);
 	}
 
 
