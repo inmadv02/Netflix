@@ -52,13 +52,7 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public ActorRest createNewActor(ActorRest actorRest) throws NetflixException {
         Actor newActor = new Actor();
-        List<TvShow> tvShowsList = actorRest.getTvShowRests()
-                                                .stream()
-                                                .map(tv -> modelMapper.map(tv, TvShow.class))
-                                                .collect(Collectors.toList());
-
         newActor.setName(actorRest.getName());
-        //tvShowsList.stream().map(tvShow -> tvShow.getActors().add(newActor));
 
         newActor = actorRepository.save(newActor);
         return modelMapper.map(newActor, ActorRest.class);
@@ -89,7 +83,7 @@ public class ActorServiceImpl implements ActorService {
         ActorsWorkRest actorsWorkRest = new ActorsWorkRest();
 
         try {
-            List<Chapter> chapters = chapterRepository.fetchAllChaptersOfActor(actorId);
+            List<Chapter> chapters = actorRepository.findById(actorId).get().getChapters();
             List<TvShow> tvShows = chapters.stream()
                                             .map(c -> c.getSeason().getTvShow())
                                             .collect(Collectors.toList());

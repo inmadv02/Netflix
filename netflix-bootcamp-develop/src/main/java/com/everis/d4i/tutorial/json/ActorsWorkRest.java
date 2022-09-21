@@ -8,11 +8,8 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ActorRest implements Serializable {
+public class ActorsWorkRest implements Serializable {
 
-    private Long id;
-    private String name;
-
-
-
+    private List<TvShowRest> tvShowRests;
+    private List<ChapterRest> chapterRests;
 }

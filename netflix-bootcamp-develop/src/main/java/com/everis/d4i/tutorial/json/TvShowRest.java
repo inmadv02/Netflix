@@ -23,7 +23,7 @@ public class TvShowRest implements Serializable {
 	private byte recommendedAge;
 	private List<CategoryRest> category;
 	private String advertising;
-	private String prizes;
+	private List<AwardRest> awards;
 
 
 }
