@@ -30,7 +30,6 @@ INSERT INTO ACTOR (ID, NAME) VALUES
     (3, 'Leonardo DiCaprio'),
     (4, 'Harrison Ford');
 
-
 INSERT INTO CHAPTER_ACTOR (CHAPTER_ID, ACTOR_ID) VALUES
     (1, 1),
     (1, 2),
@@ -40,7 +39,21 @@ INSERT INTO CHAPTER_ACTOR (CHAPTER_ID, ACTOR_ID) VALUES
     (3, 1),
     (3, 1),
     (3, 4),
-    (2, 1),
     (2, 2);
 
+INSERT INTO AWARDS (ID, NAME) VALUES
+	(1, "Top 10 TV Programs of the Year"),
+    (2, "Best Edited One-Hour Series For Non-Commercial Television"),
+    (3, "Best miniserie"),
+    (4, "Best actress - Miniserie"),
+    (5, "Best Actor in a Comedy Series"),
+    (6, "Best Comedy Series");
+
+INSERT INTO TVSHOW_AWARDS (AWARD_ID, TVSHOW_ID) VALUES
+	(1,1),
+    (2,1),
+    (3,2),
+    (4,2),
+    (5,3),
+    (6,3);
 
