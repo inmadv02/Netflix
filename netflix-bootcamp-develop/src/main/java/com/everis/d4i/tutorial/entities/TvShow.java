@@ -1,6 +1,6 @@
 package com.everis.d4i.tutorial.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.Year;
@@ -11,6 +11,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "TV_SHOWS")
 public class TvShow implements Serializable {
 

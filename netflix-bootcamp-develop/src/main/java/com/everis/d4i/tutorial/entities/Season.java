@@ -1,6 +1,6 @@
 package com.everis.d4i.tutorial.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +19,10 @@ import javax.persistence.Table;
 
 @Entity
 @Data
+@Builder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "SEASONS")
 public class Season implements Serializable {
 
