@@ -1,28 +1,19 @@
 package com.everis.d4i.tutorial.entities;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Data
-@Builder
 @EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "SEASONS")
 public class Season implements Serializable {
 
@@ -44,7 +35,6 @@ public class Season implements Serializable {
 
 	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "season")
 	private List<Chapter> chapters;
-
 
 
 }

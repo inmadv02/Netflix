@@ -19,5 +19,4 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 			short chapterNumber);
 
 
-
 }
