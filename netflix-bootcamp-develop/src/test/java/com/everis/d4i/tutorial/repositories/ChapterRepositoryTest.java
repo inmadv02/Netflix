@@ -39,7 +39,7 @@ public class ChapterRepositoryTest {
     static Chapter chapter;
     short num = 6;
 
-    @Before
+    @BeforeEach
     void setUp(){
         tvShow = new TvShow();
         tvShow.setId(6L);
