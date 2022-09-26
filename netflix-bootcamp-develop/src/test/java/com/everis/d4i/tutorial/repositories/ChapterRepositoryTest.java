@@ -1,28 +1,30 @@
 package com.everis.d4i.tutorial.repositories;
 
-import com.everis.d4i.tutorial.entities.Actor;
+import com.everis.d4i.tutorial.NetflixMain;
 import com.everis.d4i.tutorial.entities.Chapter;
 import com.everis.d4i.tutorial.entities.Season;
 import com.everis.d4i.tutorial.entities.TvShow;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Collections;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 
 @DataJpaTest
 @ActiveProfiles("test")
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = {NetflixMain.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ChapterRepositoryTest {
 
@@ -35,35 +37,34 @@ public class ChapterRepositoryTest {
     static TvShow tvShow;
     static Season season;
     static Chapter chapter;
+    short num = 6;
 
-    @BeforeEach
-    void initData(){
+    @Before
+    void setUp(){
+        tvShow = new TvShow();
+        tvShow.setId(6L);
+        tvShow.setName("Vampire Diaries");
 
-        tvShow = TvShow.builder()
-                                .id(1L)
-                                .build();
-
-        season = Season.builder()
-                                .number((short) 2)
-                                .build();
+        season = new Season();
+        season.setId(5L);
+        season.setNumber(num);
         season.setTvShow(tvShow);
-        testEntityManager.persist(tvShow);
-        testEntityManager.persist(season);
 
-        chapter =  Chapter.builder()
-                            .name("Chapter 4")
-                            .duration((short) 43)
-                            .season(season)
-                            .build();
-
+        chapter = new Chapter();
+        chapter.setId(8L);
+        chapter.setSeason(season);
+        chapter.setName("Chapter 1");
         testEntityManager.persist(chapter);
-    }
 
+    }
+    @Test
+    public void testRepoNotNull() {
+        assertThat(chapterRepository).isNotNull();
+    }
     @Test
     public void findBySeasonTvShowIdAndSeasonNumber_Success(){
-        List<Chapter> chapters = chapterRepository
-                                            .findBySeasonTvShowIdAndSeasonNumber(1L, (short) 2);
-        assertEquals(chapter, chapters.get(1));
+        List<Chapter> chapters = chapterRepository.findBySeasonTvShowIdAndSeasonNumber(6L, num);
+        assertEquals(chapter.getId(), chapters.get(0).getId());
 
     }
 

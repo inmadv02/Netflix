@@ -1,20 +1,21 @@
 package com.everis.d4i.tutorial.entities;
 
-import lombok.*;
-
-import java.io.Serializable;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.Year;
+import java.util.List;
+import java.util.Objects;
+
 
 @Entity
 @Data
-@Builder
 @EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "TV_SHOWS")
 public class TvShow implements Serializable {
 
@@ -39,7 +40,7 @@ public class TvShow implements Serializable {
 	@Column(name = "RECOMMENDED_AGE")
 	private byte recommendedAge;
 
-	@ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "tvShows")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "tvShows")
 	private List<Category> category;
 
 	@Column(name = "ADVERTISING", nullable = true)
@@ -57,8 +58,12 @@ public class TvShow implements Serializable {
 	)
 	private List<Award> awards;
 
+	public TvShow(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
-//// HELPERS /////
+	//// HELPERS /////
 
 	public void addToCategory(List<Category> categories) {
 		this.category.addAll(categories);

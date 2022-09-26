@@ -1,11 +1,12 @@
 package com.everis.d4i.tutorial.entities;
 
 import lombok.*;
-
-import java.io.Serializable;
-import java.util.List;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -43,6 +44,4 @@ public class Chapter implements Serializable {
 			}
 	)
 	private List<Actor> actors;
-
-
 }
