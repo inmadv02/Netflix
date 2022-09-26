@@ -52,7 +52,7 @@ public class ChapterServiceImplTest {
     static final String ENTITY_NOT_FOUND = "It doesn't exist an entity with that ID";
 
     @BeforeEach
-    void initData() throws Exception {
+    void setUp() throws Exception {
 
         MockitoAnnotations.initMocks(this);
 
