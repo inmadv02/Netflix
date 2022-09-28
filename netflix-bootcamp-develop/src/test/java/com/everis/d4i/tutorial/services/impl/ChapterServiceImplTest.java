@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.everis.d4i.tutorial.exceptions.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +25,7 @@ import com.everis.d4i.tutorial.json.ChapterRest;
 import com.everis.d4i.tutorial.repositories.ChapterRepository;
 import com.everis.d4i.tutorial.repositories.SeasonRepository;
 import com.everis.d4i.tutorial.repositories.TvShowRepository;
+import org.springframework.http.HttpStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -51,12 +53,10 @@ public class ChapterServiceImplTest {
     static TvShow tvShow;
     static Season season;
 
-    static final String ENTITY_NOT_FOUND = "It doesn't exist an entity with that ID";
+    static final String ENTITY_NOT_FOUND = "Unable to find com.everis.d4i.tutorial.entities.Chapter with id 56";
 
     @BeforeEach
     void setUp() throws Exception {
-
-        MockitoAnnotations.initMocks(this);
 
         tvShow = new TvShow();
         tvShow.setId(6L);
@@ -79,35 +79,22 @@ public class ChapterServiceImplTest {
     }
 
     @Test
-    public void isChapterEmpty() {
-        Mockito.when(chapterRepository.findById(8L)).thenReturn(Optional.of(chapter));
-        assertEquals(chapterRepository.getOne(8L), chapter);
-    }
-
-    @Test
     public void editChapter_Success() throws NetflixException {
         String editedChapterName = "One";
 
-        Mockito.when(chapterRepository.getOne(Mockito.anyLong())).thenReturn(chapter);
+        Mockito.when(chapterRepository.getById(Mockito.anyLong())).thenReturn(chapter);
         chapter.setName(editedChapterName);
-        Mockito.when(chapterService.editChapter(Mockito.anyLong(), Mockito.anyString()))
-                .thenReturn(modelMapper.map(chapter, ChapterRest.class));
         assertEquals(chapterService.editChapter(8L, editedChapterName), modelMapper.map(chapter, ChapterRest.class));
 
     }
 
     @Test
-    public void editChapter_thenThrowsNetflixException() throws NetflixException {
+    public void editChapter_thenThrowsNetflixException() {
         String editedChapterName = "One";
-
-        Mockito.when(chapterRepository.getOne(56L)).thenThrow(new EntityNotFoundException());
+        Mockito.when(chapterRepository.getById(56L)).thenThrow(new EntityNotFoundException());
         assertThrows(EntityNotFoundException.class, () -> chapterService.editChapter(56L, editedChapterName));
 
     }
 
-    @Test
-    public void getChapterByTvShowIdAndSeasonNumberAndChapterNumber_Success() {
-
-    }
 
 }

@@ -13,6 +13,8 @@ public class NotFoundException extends NetflixException {
 		super(HttpStatus.NOT_FOUND.value(), message);
 	}
 
+
+
 	public NotFoundException(final String message, final ErrorDto data) {
 		super(HttpStatus.NOT_FOUND.value(), message, Arrays.asList(data));
 	}

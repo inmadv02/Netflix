@@ -22,7 +22,7 @@ public class RestConstants {
 	
 	public static final String PARAMETER_CATEGORY = "categories";
 
-	public static final String PARAMETER_ACTOR = "actors";
+	public static final String PARAMETER_ACTOR = "actor";
 
 	private RestConstants() {
 		throw new IllegalStateException("Utility Class");

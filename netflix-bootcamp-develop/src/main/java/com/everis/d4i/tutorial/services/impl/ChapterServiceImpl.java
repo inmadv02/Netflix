@@ -46,12 +46,12 @@ public class ChapterServiceImpl implements ChapterService {
 	@Override
 	public ChapterRest editChapter(Long id, String chapterNewName) throws NetflixException {
 		try {
-			Chapter editedChapter = chapterRepository.getOne(id);
+			Chapter editedChapter = chapterRepository.getById(id);
 			editedChapter.setName(chapterNewName);
 			chapterRepository.save(editedChapter);
 			return modelMapper.map(editedChapter, ChapterRest.class);
 		} catch (EntityNotFoundException e){
-			throw new NotFoundException(e.getMessage());
+			throw new EntityNotFoundException(e.getMessage());
 		}
 	}
 
