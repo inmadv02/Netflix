@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -17,6 +18,7 @@ import com.everis.d4i.tutorial.NetflixMain;
 import com.everis.d4i.tutorial.entities.Chapter;
 import com.everis.d4i.tutorial.entities.Season;
 import com.everis.d4i.tutorial.entities.TvShow;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,12 +60,12 @@ public class ChapterRepositoryTest {
     }
 
     @Test
-    public void testRepoNotNull() {
+     void testRepoNotNull() {
         assertThat(chapterRepository).isNotNull();
     }
 
     @Test
-    public void findBySeasonTvShowIdAndSeasonNumber_Success() {
+    void findBySeasonTvShowIdAndSeasonNumber_Success() {
         List<Chapter> chapters = chapterRepository.findBySeasonTvShowIdAndSeasonNumber(6L, num);
         assertEquals(chapter.getId(), chapters.get(0).getId());
 

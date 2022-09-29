@@ -36,24 +36,14 @@ public class ChapterServiceImplTest {
 
     @Mock
     private ChapterRepository chapterRepository;
-
-    @Mock
-    private SeasonRepository seasonRepository;
-
-    @Mock
-    private TvShowRepository tvShowRepository;
-
     @InjectMocks
     private ChapterServiceImpl chapterService;
-
     @Mock
     ModelMapper modelMapper;
 
     static Chapter chapter;
     static TvShow tvShow;
     static Season season;
-
-    static final String ENTITY_NOT_FOUND = "Unable to find com.everis.d4i.tutorial.entities.Chapter with id 56";
 
     @BeforeEach
     void setUp() throws Exception {

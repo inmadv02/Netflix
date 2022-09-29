@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static sun.plugin2.util.PojoUtil.toJson;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,23 +38,20 @@ class ActorControllerImplTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
     private ActorControllerImpl actorController;
-
     @MockBean
     private ActorServiceImpl actorService;
-
     @MockBean
     private ModelMapper modelMapper;
 
     static Actor actor, actor2;
     static ActorRest actor3;
     static List<Actor> actors;
-    static List<ActorRest> actorRests;
+    static List<ActorRest> actorsRests;
     static NetflixResponse<List<ActorRest>> netflixResponse;
     static NetflixResponse<ActorRest> createActorRestNetflixResponse, getActorByIdNetflixResponse;
 
@@ -79,16 +76,16 @@ class ActorControllerImplTest {
 
         actors.addAll(Arrays.asList(actor, actor2));
 
-        actorRests = actors.stream().map(a -> modelMapper.map(a, ActorRest.class)).collect(Collectors.toList());
+        actorsRests = actors.stream().map(a -> modelMapper.map(a, ActorRest.class)).collect(Collectors.toList());
 
-        netflixResponse = new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK, actorRests);
+        netflixResponse = new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK, actorsRests);
         createActorRestNetflixResponse = new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK, actor3);
         getActorByIdNetflixResponse = new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK, modelMapper.map(actor, ActorRest.class));
     }
 
     @Test
     void getActors_Success() throws Exception {
-        Mockito.when(actorService.getActors()).thenReturn(actorRests);
+        Mockito.when(actorService.getActors()).thenReturn(actorsRests);
 
         mockMvc.perform(get(RestConstants.APPLICATION_NAME + RestConstants.API_VERSION_1 + RestConstants.RESOURCE_ACTOR)
                             .contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -119,7 +116,7 @@ class ActorControllerImplTest {
         mockMvc.perform(post(RestConstants.APPLICATION_NAME + RestConstants.API_VERSION_1 + RestConstants.RESOURCE_ACTOR)
                         .param(RestConstants.PARAMETER_ACTOR, String.valueOf(actor3))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(toJson(actor3)))
+                        .content(objectMapper.writeValueAsString(actor3)))
                 .andExpect(status().isOk()).andDo(print());
 
 
